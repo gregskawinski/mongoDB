@@ -2,9 +2,9 @@
 - https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-debian/
 
 # How to start mongoDB service
-- sudo systemctl start/restart mongod
-- sudo systemctl status mongod
-- sudo systemctl enable/disable mongod
+* sudo systemctl start/restart mongod
+* sudo systemctl status mongod
+* sudo systemctl enable/disable mongod
 
 # How to perform mongoDB operations in shell = mongosh
 - https://www.digitalocean.com/community/tutorials/how-to-perform-crud-operations-in-mongodb
