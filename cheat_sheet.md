@@ -2,9 +2,9 @@
 - https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-debian/
 
 # How to start mongoDB service
-> sudo systemctl start/restart mongod
-> sudo systemctl status mongod
-> sudo systemctl enable/disable mongod
+- sudo systemctl start/restart mongod
+- sudo systemctl status mongod
+- sudo systemctl enable/disable mongod
 
 # How to perform mongoDB operations in shell = mongosh
 - https://www.digitalocean.com/community/tutorials/how-to-perform-crud-operations-in-mongodb
@@ -23,14 +23,14 @@
 > exit()
 
 # MONGODB structure
-Database -> Collection -> Document
+- Database -> Collection (Table) -> Document (Record)
 
 # Viewing currently connected database
 > db
 # Viewing list of databases
 > show dbs
 # Change database
-> use <db>
+> use <db_name>
 # Viewing list of collections
 > show collections
 
@@ -51,13 +51,13 @@ Database -> Collection -> Document
 # Inserting documents to Collection 
 > db.student.insertOne({ _id: 1, name: "Alice",  age: 23 });
 # Inserting multiple documents to Collection
-db.student.insertMany([
+> db.student.insertMany([
   { _id: 2, name: "Ian", age: 21 },
   { _id: 3, name: "Candice", age: 20  },
   { _id: 4, name: "Emily", age: 22  },
 ]);
 # Create nested Collection
-db.student.insertMany([
+> db.student.insertMany([
   { 
     _id:1, 
     student_detail: [ 
