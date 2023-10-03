@@ -1,25 +1,25 @@
-# How to install mongoDB on Debian 
+## How to install mongoDB on Debian 
 - https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-debian/
 
-# How to start mongoDB service
+## How to start mongoDB service
 * sudo systemctl start/restart mongod
 * sudo systemctl status mongod
 * sudo systemctl enable/disable mongod
 
-# How to perform mongoDB operations in shell = mongosh
+## How to perform mongoDB operations in shell = mongosh
 - https://www.digitalocean.com/community/tutorials/how-to-perform-crud-operations-in-mongodb
 - https://sparkbyexamples.com/mongodb-tutorial-with-examples/
 
-# Start mongosh session 
+## Start mongosh session 
 > mongosh
-# with port number
+### with port number
 > mongosh --port 27017  
-# with no DB connection
+### with no DB connection
 > mongosh --nodb  
-# with remoute connection // on atlas 
+### with remoute connection // on atlas 
 - mongosh "mongodb+srv://mycluster.abcd1.mongodb.net/myFirstDatabase" --apiVersion 1 --username <username>  
 
-# End the session
+### End the session
 > exit()
 
 # MONGODB structure
