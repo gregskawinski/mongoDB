@@ -13,7 +13,7 @@
 ### with no DB connection
 > mongosh --nodb  
 ### with remoute connection // on atlas 
-> mongosh 'mongodb+srv://<USERNAME>:<PASSWORD>@cluster-test.fndbj.mongodb.net/UserData?retryWrites=true&w=majority' 
+> mongosh "mongodb+srv://USERNAME:PASSWORD@cluster-test.fndbj.mongodb.net/UserData?retryWrites=true&w=majority"
 
 ### End the session
 > exit
