@@ -6,10 +6,6 @@
 * sudo systemctl status mongod
 * sudo systemctl enable/disable mongod
 
-## How to perform mongoDB operations in shell = mongosh
-- https://www.digitalocean.com/community/tutorials/how-to-perform-crud-operations-in-mongodb
-- https://sparkbyexamples.com/mongodb-tutorial-with-examples/
-
 ## Start mongosh session 
 > mongosh
 ### with port number
@@ -17,21 +13,21 @@
 ### with no DB connection
 > mongosh --nodb  
 ### with remoute connection // on atlas 
-- mongosh "mongodb+srv://mycluster.abcd1.mongodb.net/myFirstDatabase" --apiVersion 1 --username <username>  
+- mongosh "mongodb+srv://<USERNAME>:<PASSWORD>@cluster-test.fndbj.mongodb.net/UserData?retryWrites=true&w=majority"  
 
 ### End the session
-> exit()
+> exit
 
-# MONGODB structure
+## MONGODB structure
 - Database -> Collection (Table) -> Document (Record)
 
-# Viewing currently connected database
+### Viewing currently connected database
 > db
-# Viewing list of databases
+### Viewing list of databases
 > show dbs
-# Change database
+### Change database
 > use <db_name>
-# Viewing list of collections
+### Viewing list of collections
 > show collections
 
 # Get a full list of commands that you can execute on the current database
@@ -308,4 +304,8 @@ db.student.aggregate([{$unwind : "$model_year" }]
 # $lookup is an aggregate query that merges fields from two collections.
 
 
+
+## How to perform mongoDB operations in shell = mongosh
+- https://www.digitalocean.com/community/tutorials/how-to-perform-crud-operations-in-mongodb
+- https://sparkbyexamples.com/mongodb-tutorial-with-examples/
  
