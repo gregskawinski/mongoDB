@@ -1,7 +1,12 @@
-# mongoDB cheat-sheets
+#### 1. mongoDB shell = mongosh cheat-sheet, with examples
+```
+cheat_sheet.md 
+```
 
-# How to install and use mongosh 
-mongosh.md
+#### load studentDB.json to mongoDB by mongoimport tool 
+```
+mongoimport --jsonArray --db mydb --collection student --file studentDB.json
+```
 
-# Python mongoDb manager class, with usage example
+#### 2. Python mongoDb manager class, with usage example
 mongodb.ipynb
