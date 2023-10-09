@@ -19,7 +19,7 @@
 #### with port number
 > mongosh --port 27017
 #### with user/pass
-> mongosh "mongodb://<user>:<password>@192.168.1.1:27017"
+> mongosh "mongodb://user:password@192.168.1.1:27017"
 #### with no DB connection
 > mongosh --nodb  
 #### with remoute connection - on atlas 
@@ -83,11 +83,14 @@ db.student.insertOne([
 
 ### Perform operations on collection "student"
 #### Counting documents of collection
-> db.student.countDocuments()
-> db.student.countDocuments({ name: "Alice" })
+```
+db.student.countDocuments()
+db.student.countDocuments({ name: "Alice" })
+```
 
-#### Reading single / all documents from collection
+#### Reading single document from collection
 > db.student.findOne()
+#### Reading all documents from collection
 > db.student.find();
 #### Finding specific documents, with specified field, eg. Name = Alice etc
 > db.student.find({ name: "Alice" });
@@ -110,14 +113,14 @@ db.student.insertOne([
 #### Sorting by multiple fields
 > db.student.find().sort([{ first_name: 1 }, { age: -1 }])
 
-#### Limiting output
-> db.student.find().limit(2)
-
 #### Projection parameter to retrieve only specific fields from the retrieved documents instea
 #### Retrieve only name and age will be retrived
 > db.student.find( {first_name: "Linda"}, { first_name: 1, last_name: 1 })
 # _id field is included by default, unless specifically excluded. excluse by _id: 0 
 > db.student.find( {first_name: "Linda"}, { _id: 0, first_name: 1, last_name: 1 })
+
+#### Limiting output
+> db.student.find().limit(2)
 
 #### Retrieve Distinct Values of Specified Field
 > db.student.distinct("first_name")
