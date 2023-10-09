@@ -44,7 +44,9 @@ mongosh "mongodb+srv://USERNAME:PASSWORD@cluster-test.fndbj.mongodb.net/UserData
 #### Create a database 'mydb' 
 > use mydb
 #### Create collections 'student'
-> db.createCollection(“student”)
+```
+db.createCollection(“student”)
+```
 #### Retrieve Statistics of the Collection Usage 
 > db.student.stats()
 #### Drop collection 'student'
@@ -78,8 +80,9 @@ db.student.insertOne([
 ])
 ```
 #### Insert date object
-> db.coll.insertOne({date: ISODate()})
-
+```
+db.coll.insertOne({date: ISODate()})
+```
 ### Perform operations on collection "student"
 #### Counting documents of collection
 ```
@@ -88,30 +91,50 @@ db.student.countDocuments({ name: "Alice" })
 ```
 
 #### Reading single document from collection
-> db.student.findOne()
+```
+db.student.findOne()
+```
 #### Reading all documents from collection
-> db.student.find();
+```
+db.student.find();
+```
 #### Finding specific documents, with specified field, eg. Name = Alice etc
-> db.student.find({ name: "Alice" });
+```
+db.student.find({ name: "Alice" });
+```
 #### Finding single document with specified field 
-> db.student.findOne({ "major": "Finance"})
+```
+db.student.findOne({ "major": "Finance"})
+```
 #### Finding single document with multiple fields
-> db.student.findOne({first_name: "Michael", age: 20})
+```
+db.student.findOne({first_name: "Michael", age: 20})
+```
 #### Finding specific documents with conditional operator
-> db.student.find({age: {$gt: 31}})
+```
+db.student.find({age: {$gt: 31}})
+```
 #### Finding specific documents multiple fields/conditions 
-> db.student.find({ age: { $gt: 29 }, major: "Finance" })
+```
+db.student.find({ age: { $gt: 29 }, major: "Finance" })
+```
 #### Finding date
-> db.student.find({date_of_birth: ISODate("1996-06-10")})
-
+```
+db.student.find({date_of_birth: ISODate("1996-06-10")})
+```
 ### Sort documents, with  1 = ascending / -1 = descending order
 #### Sorting in in ascending order
-> db.student.find().sort({ age: 1 })  
+```
+db.student.find().sort({ age: 1 })  
+```
 #### Sorting in descending order
-> db.student.find().sort({ first_name: -1 })
+```
+db.student.find().sort({ first_name: -1 })
+```
 #### Sorting by multiple fields
-> db.student.find().sort([{ first_name: 1 }, { age: -1 }])
-
+```
+db.student.find().sort([{ first_name: 1 }, { age: -1 }])
+```
 #### Projection parameter to retrieve only specific fields from the retrieved documents instea
 #### Retrieve only name and age will be retrived
 ```
@@ -122,15 +145,21 @@ db.student.find( {first_name: "Linda"}, { first_name: 1, last_name: 1 })
 db.student.find( {first_name: "Linda"}, { _id: 0, first_name: 1, last_name: 1 })
 ```
 #### Limiting output
-> db.student.find().limit(2)
-
+```
+db.student.find().limit(2)
+```
 #### Retrieve Distinct Values of Specified Field
-> db.student.distinct("first_name")
+```
+db.student.distinct("first_name")
+```
 #### Retrieve Distinct Values Number of Field
-> db.student.distinct("first_name").length
+```
+db.student.distinct("first_name").length
+```
 #### Retrieve Distinct Values of Field with Condition
-> db.student.distinct("first_name", {"age": {$gt: 30}})
-
+```
+db.student.distinct("first_name", {"age": {$gt: 30}})
+```
 #### Finding and return values of existing fields (only value where a field exists, be returned)
 ```
 db.student.find({ name: { $exists: true }, age: { $exists: true } } )
@@ -253,20 +282,30 @@ db.student.findOneAndUpdate(
 ```
 ### DELETE operations
 #### Deleting one document from collection
-> db.student.deleteOne({first_name: "Amy" });
+```
+db.student.deleteOne({first_name: "Amy" });
+```
 #### Deleting all documents from collection
-> db.student.deleteMany({first_name: "Amy" }, { age:20 });
+```
+db.student.deleteMany({first_name: "Amy" }, { age:20 });
+```
 #### Delete all with conditional operators
-> db.student.deleteMany({ grades.math: { $gt:85} })
+```
+db.student.deleteMany({ grades.math: { $gt:85} })
+```
 #### Delete all the documents from the collection
-> db.student.deleteMany({ })
-
+```
+db.student.deleteMany({ })
+```
 ### Creating index
 #### The value 1 specifies that the index should be created in ascending order. 
-> db.student.createIndex({ last_name: 1 })  
+```
+db.student.createIndex({ last_name: 1 })  
+```
 #### Getting indexes
-> db.student.getIndexes()
-
+```
+db.student.getIndexes()
+```
 
 #### Advance Pipelines 
 
