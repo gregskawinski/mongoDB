@@ -1,10 +1,14 @@
-#### How to install mongoDB on Debian 
+### How to install mongoDB on Debian 
 - https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-debian/
 
-#### How to start mongoDB service in Ubuntu/Debian
+### How to start mongoDB service in Ubuntu/Debian
 * sudo systemctl start/restart mongod
 * sudo systemctl status mongod
 * sudo systemctl enable/disable mongod
+
+### Load mongoDB collection / import JSON file using mongoimport tool
+#### syntax: mongoimport –jsonArray –db database_name –collection collection_name –file file_location
+> mongoimport --jsonArray --db mydb --collection student --file studentDB.json
 
 ### Start mongosh session 
 > mongosh
@@ -18,28 +22,30 @@
 ### End the session
 > exit
 
-## MONGODB structure
-- Database -> Collection (Table) -> Document (Record)
+### MONGODB structure
+#### Database 
+##### Collection (Table) 
+###### Document (Record)
 
-### Viewing currently connected database
+#### Viewing currently connected database
 > db
-### Viewing list of databases
+#### Viewing list of databases
 > show dbs
 ### Change database
 > use <db_name>
-### Viewing list of collections
+#### Viewing list of collections
 > show collections
 
-# Get a full list of commands that you can execute on the current database
+#### Get a full list of commands that you can execute / on the current database
 > help()
 > db.help()
-# Usage of show.help command
+#### Usage of show.help command
 > show.help
 
 # Create a database in MongoDB by using 
 > use db_name
 # Create collections "student"
->db.createCollection(“student”)
+> db.createCollection(“student”)
 
 # Drop collection "student"
 > db.student.drop() 
