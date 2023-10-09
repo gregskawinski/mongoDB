@@ -1,4 +1,5 @@
-### How to install mongoDB on Debian 
+### How to install mongoDB on Ubuntu/Debian 
+- https://www.cherryservers.com/blog/how-to-install-and-start-using-mongodb-on-ubuntu-20-04
 - https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-debian/
 
 ### How to start mongoDB service in Ubuntu/Debian
@@ -23,9 +24,7 @@
 > exit
 
 ### MONGODB structure
-#### Database 
-##### Collection (Table) 
-###### Document (Record)
+#### Database : ##### Collection (Table) : ###### Document (Record)
 
 #### Viewing currently connected database
 > db
