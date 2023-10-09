@@ -9,4 +9,6 @@ mongoimport --jsonArray --db mydb --collection student --file studentDB.json
 ```
 
 #### 2. Python mongoDb manager class, with usage example
-mongodb.ipynb
+```
+mongodbMng.ipynb
+```
