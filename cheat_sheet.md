@@ -8,16 +8,25 @@
 mongoimport --jsonArray --db mydb --collection student --file studentDB.json
 ```
 #### Run JavaScript File
-> load("mongoDB_script.js")
-
+```
+load("mongoDB_script.js")
+```
 ### Start mongosh session 
-> mongosh
+```
+mongosh
+```
 #### with port number
-> mongosh --port 27017
+```
+mongosh --port 27017
+```
 #### with user/pass
-> mongosh "mongodb://user:password@192.168.1.1:27017"
+```
+mongosh "mongodb://user:password@192.168.1.1:27017"
+```
 #### with no DB connection
-> mongosh --nodb  
+```
+mongosh --nodb  
+```
 #### with remoute connection - on atlas 
 ```
 mongosh "mongodb+srv://USERNAME:PASSWORD@cluster-test.fndbj.mongodb.net/UserData?retryWrites=true&w=majority"
@@ -29,31 +38,46 @@ mongosh "mongodb+srv://USERNAME:PASSWORD@cluster-test.fndbj.mongodb.net/UserData
 #### Database : Collection (Table) : Document (Record)
 
 #### Viewing currently connected database
-> db
+```
+db
+```
 #### Viewing list of databases
-> show dbs
+```
+show dbs
+```
 #### Change database to 'mydb'
-> use mydb
+```
+use mydb
+```
 #### Viewing list of collections
-> show collections
-
+```
+show collections
+```
 #### Get a full list of commands that you can execute / on the current database
-> help
-> db.help
-
+```
+help
+db.help
+```
 #### Create a database 'mydb' 
-> use mydb
+```
+use mydb
+```
 #### Create collections 'student'
 ```
 db.createCollection(“student”)
 ```
 #### Retrieve Statistics of the Collection Usage 
-> db.student.stats()
+```
+db.student.stats()
+```
 #### Drop collection 'student'
-> db.student.drop()
+```
+db.student.drop()
+```
 #### Drop database
-> db.dropDatabase()
-
+```
+db.dropDatabase()
+```
 #### Inserting documents to Collection
 ```
 db.student.insertOne({ _id: 1001, name: "Alice",  age: 23 });
