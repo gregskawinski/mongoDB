@@ -1,12 +1,12 @@
-## How to install mongoDB on Debian 
+How to install mongoDB on Debian 
 - https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-debian/
 
-## How to start mongoDB service
+How to start mongoDB service
 * sudo systemctl start/restart mongod
 * sudo systemctl status mongod
 * sudo systemctl enable/disable mongod
 
-## Start mongosh session 
+Start mongosh session 
 > mongosh
 ### with port number
 > mongosh --port 27017  
