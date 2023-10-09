@@ -11,10 +11,15 @@
 #### syntax: mongoimport –jsonArray –db database_name –collection collection_name –file file_location
 > mongoimport --jsonArray --db mydb --collection student --file studentDB.json
 
+#### Run JavaScript File
+> load("mongoDB_script.js")
+
 ### Start mongosh session 
 > mongosh
 #### with port number
-> mongosh --port 27017  
+> mongosh --port 27017
+#### with user/pass
+> mongosh "mongodb://<user>:<password>@192.168.1.1:27017"
 #### with no DB connection
 > mongosh --nodb  
 #### with remoute connection - on atlas 
@@ -43,14 +48,16 @@
 > use mydb
 #### Create collections 'student'
 > db.createCollection(“student”)
-
+#### Retrieve Statistics of the Collection Usage 
+> db.student.stats()
 #### Drop collection 'student'
-> db.student.drop() 
+> db.student.drop()
+#### Drop database
+> db.dropDatabase()
 
 #### Inserting documents to Collection 
 > db.student.insertOne({ _id: 1001, name: "Alice",  age: 23 });
 #### Inserting multiple documents to Collection
-
 ```
 db.student.insertMany([
   { _id: 1002, name: "Ian", age: 21 },
@@ -71,6 +78,8 @@ db.student.insertOne([
    }
 ])
 ```
+#### Insert date object
+> db.coll.insertOne({date: ISODate()})
 
 ### Perform operations on collection "student"
 #### Counting documents of collection
@@ -90,6 +99,8 @@ db.student.insertOne([
 > db.student.find({age: {$gt: 31}})
 #### Finding specific documents multiple fields/conditions 
 > db.student.find({ age: { $gt: 29 }, major: "Finance" })
+#### Finding date
+> db.student.find({date_of_birth: ISODate("1996-06-10")})
 
 ### Sort documents, with  1 = ascending / -1 = descending order
 #### Sorting in in ascending order
@@ -127,47 +138,51 @@ db.student.insertOne([
 > db.student.find({"contact_information.email":{$regex:"example.net"}});
 #### Finding document, SQL-like '%anc%' using regular expression
 > db.student.find({country: /anc/})
-#### Finding documents using $regex ^ character
+#### Finding documents using $regex ^ character - starts by "Lit"
 > db.student.find({ major: { $regex: /^Lit/ } }).count()
 #### Finding documents using $regex | operator
 > db.student.find({ first_name: { $regex: /Anthony|Amy/ } })
 #### Usage of $in operator
 > db.student.find({ first_name: { $in: ["Anthony", "Amy"] } })
 
-#### Usage of $caseSensitive operator
+#### Usage of $text opeator - index must be created first 
 > db.student.find({ $text: { $search: "nice", $caseSensitive: true} })
 
-
-# The getTimestamp() method is another way to extract the timestamp from the ObjectId 
-# Usage of getTimestamp() method
+#### getTimestamp() to extract the timestamp from the ObjectId 
+```
 db.student.find({_id: {$gt: 
   ObjectId(Math.floor((new Date('2023-03-18')).getTime()/1000).toString(16) + "0000000000000000")
 }})
-
+```
 #### MongoDB Query Operators
 - https://www.w3schools.com/mongodb/mongodb_query_operators.php
 
 #### Usage of $gte and $lte operator
-> db.student.find({ 
-  date: { $gte: new Date("2022-01-01"), 
-          $lte: new Date("2023-01-01") 
+```
+db.student.find({ 
+  date_of_birth: { $gte: new Date("2022-01-01"), 
+                   $lte: new Date("2023-01-01") 
         } 
   })
+```
 #### Using $and operator
-> db.student.find({
+```
+db.student.find({
   $and: [
-    { date: { $gte: new Date("2022-12-01") } },
-    { date: { $lte: new Date("2023-03-01") } }
+    { date_of_birth: { $gte: new Date("2022-12-01") } },
+    { date_of_birth: { $lte: new Date("2023-03-01") } }
   ]
 })
+```
 #### Using $or operator
-> db.student.find({
+```
+ db.student.find({
    $or: [
-      { date: { $lt: ISODate("2023-01-01") } },
-      { date: { $gt: ISODate("2023-12-01") } }
+      { date_of_birth: { $lt: ISODate("2023-01-01") } },
+      { date_of_birth: { $gt: ISODate("2023-12-01") } }
    ]
 })
-
+```
 
 ### Update Operations
 ### MongoDB Update Operators
@@ -222,20 +237,8 @@ db.student.deleteMany({ })
 #### Getting indexes
 > db.student.getIndexes()
 
-# Retrieve Statistics of the Collection Usage 
-db.student.stats()
-# Usage of CreateUser command
-db.adminCommand(  
-  {  
-    createUser: "User21",  
-    pwd: passwordPrompt(),  
-    roles: [  
-      { role: "dbOwner", db: "admin" }  
-    ]  
-  }  
-)
 
-## Advance Pipelines 
+#### Advance Pipelines 
 
 # Using the aggregation pipeline
 # https://www.digitalocean.com/community/tutorials/how-to-use-aggregations-in-mongodb
@@ -299,7 +302,8 @@ db.student.aggregate([{$unwind : "$model_year" }]
 
 
 
-## How to perform mongoDB operations in shell = mongosh
+#### How to perform mongoDB operations in shell = mongosh
 - https://www.digitalocean.com/community/tutorials/how-to-perform-crud-operations-in-mongodb
 - https://sparkbyexamples.com/mongodb-tutorial-with-examples/
+- https://www.mongodb.com/developer/products/mongodb/cheat-sheet/
  
