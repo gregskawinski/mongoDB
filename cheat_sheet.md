@@ -47,24 +47,15 @@
 #### Drop collection 'student'
 > db.student.drop() 
 
-# Inserting documents to Collection 
+#### Inserting documents to Collection 
 > db.student.insertOne({ _id: 1001, name: "Alice",  age: 23 });
-# Inserting multiple documents to Collection
+#### Inserting multiple documents to Collection
 > db.student.insertMany([
   { _id: 1002, name: "Ian", age: 21 },
   { _id: 1003, name: "Candice", age: 20  },
   { _id: 1004, name: "Emily", age: 22  },
 ]);
-# Create nested Collection
-> db.student.insertMany([
-  { _id: 1005, 
-    student_detail: [ 
-      {"name":"Andy", "age": 24, "email": "andy24@gmail.com", 
-          "address":[
-            {"city":"New York", "street": "S1"}
-          ]
-      } ]      
-  },] )
+#### Insert nested collection
 > db.student.insertOne([
 ...   { _id:1005, 
 ...     grades: {
@@ -75,7 +66,6 @@
 ...     details:[  1, 2, 3  ],      
 ...   }
 ])
-
 
 ### Perform operations on collection "student"
 #### Counting documents of collection
@@ -102,7 +92,16 @@
 #### Sorting in descending order
 > db.student.find().sort({ first_name: -1 })
 #### Sorting by multiple fields
-> db.student.find().sort([{ first_name: 1 }, { age: -1 }]) 
+> db.student.find().sort([{ first_name: 1 }, { age: -1 }])
+
+#### Limiting output
+> db.student.find().limit(2)
+
+#### Projection parameter to retrieve only specific fields from the retrieved documents instea
+#### Retrieve only name and age will be retrived
+> db.student.find( {first_name: "Linda"}, { first_name: 1, last_name: 1 })
+# _id field is included by default, unless specifically excluded. excluse by _id: 0 
+> db.student.find( {first_name: "Linda"}, { _id: 0, first_name: 1, last_name: 1 })
 
 #### Retrieve Distinct Values of Specified Field
 > db.student.distinct("first_name")
@@ -114,20 +113,23 @@
 #### Finding and return values of existing fields (only value where a field exists, be returned)
 > db.student.find({ name: { $exists: true }, age: { $exists: true } } )
 
+#### Finding usig nested fields, where "grades": { "math": 61, "history": 80}
+> db.student.find({ "grades.math": 61 })
 
-# Like '%a%' using regular expression
-> db.student.find({subject: /a/})  
-# Using ^ character
-> db.student.find({ subject: { $regex: /^Python/ } })
-# Using | operator
-> db.student.find({ name: { $regex: /kim|David/ } })
-# Usage of $regex operator
-> db.student.find({"email":{$regex:"gmail.com"}});
+#### Finding documents using $regex operator
+> db.student.find({"contact_information.email":{$regex:"example.net"}});
+#### Finding document, SQL-like '%anc%' using regular expression
+> db.student.find({country: /anc/})
+#### Finding documents using $regex ^ character
+> db.student.find({ major: { $regex: /^Lit/ } }).count()
+#### Finding documents using $regex | operator
+> db.student.find({ first_name: { $regex: /Anthony|Amy/ } })
+#### Usage of $in operator
+> db.student.find({ first_name: { $in: ["Anthony", "Amy"] } })
 
-# Usage of $caseSensitive operator
+#### Usage of $caseSensitive operator
 > db.student.find({ $text: { $search: "nice", $caseSensitive: true} })
-# Usage of $in operator
-> db.student.find({ name: { $in: ["Alice Mark", "Alaric Steve"] } })
+
 
 # The getTimestamp() method is another way to extract the timestamp from the ObjectId 
 # Usage of getTimestamp() method
@@ -135,7 +137,7 @@ db.student.find({_id: {$gt:
   ObjectId(Math.floor((new Date('2023-03-18')).getTime()/1000).toString(16) + "0000000000000000")
 }})
 
-# MongoDB Query Operators
+#### MongoDB Query Operators
 - https://www.w3schools.com/mongodb/mongodb_query_operators.php
 
 # Usage of $gte and $lte operator
@@ -172,18 +174,8 @@ db.student.find({_id: {$gt:
 
 > db.student.find({"student_detail.name": "Andy"}) 
 
-# Query multiple nested objects
-> db.student.find({"student_detail.name": "Tyler", "student_detail.email": "tyler22@gmail.com" })
 
-# Use the projection parameter to retrieve only specific fields from the retrieved documents instead of obtaining the entire MongoDB collection of data from the document.
-# Usage of projection parameter, only name and age will be retrived
-# _id field is also included. This field is always included unless specifically excluded.
-> db.student.find({}, { name: 1, age: 1 })   	
-# excluse _id 
-> db.posts.find({}, {_id: 0, title: 1, date: 1})
 
-# Usage of limit method
-> db.student.find().limit(2)
 
 # MongoDB Update Operators
 - https://www.w3schools.com/mongodb/mongodb_update_operators.php
