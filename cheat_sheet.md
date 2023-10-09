@@ -17,36 +17,34 @@
 > mongosh --port 27017  
 #### with no DB connection
 > mongosh --nodb  
-#### with remoute connection // on atlas 
+#### with remoute connection - on atlas 
 > mongosh "mongodb+srv://USERNAME:PASSWORD@cluster-test.fndbj.mongodb.net/UserData?retryWrites=true&w=majority"
 
 ### End the session
 > exit
 
 ### MONGODB structure
-#### Database : ##### Collection (Table) : ###### Document (Record)
+#### Database : Collection (Table) : Document (Record)
 
 #### Viewing currently connected database
 > db
 #### Viewing list of databases
 > show dbs
-### Change database
-> use <db_name>
+#### Change database to 'mydb'
+> use mydb
 #### Viewing list of collections
 > show collections
 
 #### Get a full list of commands that you can execute / on the current database
-> help()
-> db.help()
-#### Usage of show.help command
-> show.help
+> help
+> db.help
 
-# Create a database in MongoDB by using 
-> use db_name
-# Create collections "student"
+#### Create a database in MongoDB by using 
+> use mydb
+#### Create collections 'student'
 > db.createCollection(“student”)
 
-# Drop collection "student"
+#### Drop collection 'student'
 > db.student.drop() 
 
 # Inserting documents to Collection 
