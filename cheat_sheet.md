@@ -1,18 +1,18 @@
-How to install mongoDB on Debian 
+#### How to install mongoDB on Debian 
 - https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-debian/
 
-How to start mongoDB service
+#### How to start mongoDB service in Ubuntu/Debian
 * sudo systemctl start/restart mongod
 * sudo systemctl status mongod
 * sudo systemctl enable/disable mongod
 
-Start mongosh session 
+### Start mongosh session 
 > mongosh
-##### with port number
+#### with port number
 > mongosh --port 27017  
 #### with no DB connection
 > mongosh --nodb  
-### with remoute connection // on atlas 
+#### with remoute connection // on atlas 
 > mongosh "mongodb+srv://USERNAME:PASSWORD@cluster-test.fndbj.mongodb.net/UserData?retryWrites=true&w=majority"
 
 ### End the session
