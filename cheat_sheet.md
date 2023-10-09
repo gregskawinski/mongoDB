@@ -51,22 +51,24 @@
 > db.student.insertOne({ _id: 1001, name: "Alice",  age: 23 });
 #### Inserting multiple documents to Collection
 
-``` db.student.insertMany([
+```
+db.student.insertMany([
   { _id: 1002, name: "Ian", age: 21 },
   { _id: 1003, name: "Candice", age: 20  },
   { _id: 1004, name: "Emily", age: 22  },
 ]);
 ```
 #### Insert nested collection
-``` db.student.insertOne([
-...   { _id:1005, 
-...     grades: {
-...             "math": 80,
-...             "history": 83,
-...             "english": 90
-...     },
-...     details:[  1, 2, 3  ],      
-...   }
+```
+db.student.insertOne([
+   { _id:1005, 
+     grades: {
+             "math": 80,
+             "history": 83,
+             "english": 90
+     },
+     details:[  1, 2, 3  ],      
+   }
 ])
 ```
 
