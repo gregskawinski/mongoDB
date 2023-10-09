@@ -50,13 +50,15 @@
 #### Inserting documents to Collection 
 > db.student.insertOne({ _id: 1001, name: "Alice",  age: 23 });
 #### Inserting multiple documents to Collection
-> db.student.insertMany([
+
+``` db.student.insertMany([
   { _id: 1002, name: "Ian", age: 21 },
   { _id: 1003, name: "Candice", age: 20  },
   { _id: 1004, name: "Emily", age: 22  },
 ]);
+```
 #### Insert nested collection
-> db.student.insertOne([
+``` db.student.insertOne([
 ...   { _id:1005, 
 ...     grades: {
 ...             "math": 80,
@@ -66,6 +68,7 @@
 ...     details:[  1, 2, 3  ],      
 ...   }
 ])
+```
 
 ### Perform operations on collection "student"
 #### Counting documents of collection
@@ -113,6 +116,8 @@
 #### Finding and return values of existing fields (only value where a field exists, be returned)
 > db.student.find({ name: { $exists: true }, age: { $exists: true } } )
 
+#### Usage of DOT notation to query nested object
+> db.student.find({"student_detail.name": "Andy"}) 
 #### Finding usig nested fields, where "grades": { "math": 61, "history": 80}
 > db.student.find({ "grades.math": 61 })
 
@@ -140,20 +145,20 @@ db.student.find({_id: {$gt:
 #### MongoDB Query Operators
 - https://www.w3schools.com/mongodb/mongodb_query_operators.php
 
-# Usage of $gte and $lte operator
+#### Usage of $gte and $lte operator
 > db.student.find({ 
   date: { $gte: new Date("2022-01-01"), 
           $lte: new Date("2023-01-01") 
         } 
   })
-# Using $and operator
+#### Using $and operator
 > db.student.find({
   $and: [
     { date: { $gte: new Date("2022-12-01") } },
     { date: { $lte: new Date("2023-03-01") } }
   ]
 })
-# Using $or operator
+#### Using $or operator
 > db.student.find({
    $or: [
       { date: { $lt: ISODate("2023-01-01") } },
@@ -161,74 +166,58 @@ db.student.find({_id: {$gt:
    ]
 })
 
-# Usage of dot notation to query nested object
- { 
-    _id:1, 
-    student_detail: [ 
-      {"name":"Andy", "age": 24, "email": "andy24@gmail.com", 
-          "address":[
-            {"city":"New York", "street": "S1"}
-          ]
-      } ]      
-  }
 
-> db.student.find({"student_detail.name": "Andy"}) 
-
-
-
-
-# MongoDB Update Operators
+### Update Operations
+### MongoDB Update Operators
 - https://www.w3schools.com/mongodb/mongodb_update_operators.php
 
-# Updating Single Document
+#### Updating Single Document
 db.student.updateOne(
   { name: "Emily" },
   { $set: { age: 24 } }
 );
-# Usage of updateOne method
+#### Usage of updateOne method
 db.student.updateOne(
    { email: "alex@gmail.com" }, 
    { $setOnInsert: { name: "Alex" } },
    { upsert: true }
 )
-# Update multiple documents
+#### Update multiple documents
 db.student.updateMany(
   { age: { $gte: 20 } },
   { $set: { name: "Students" } }
 );
-# Using $set Operator to Add New Field in collection
-# Usage of updateMany() method
+#### Using $set Operator to Add New Field in collection
+#### Usage of updateMany() method
 db.student.updateMany({}, { $set: { Degree: "computer science" } });
 
-# Usage of replaceOne() method
+#### Usage of replaceOne() method
 db.student.replaceOne(
    { _id: 1 },
    { _id: 1, name: "Marrie", age: 28 },
    { upsert: true }
 );
-# Usage of findOneAndUpdate() method
+#### Usage of findOneAndUpdate() method
 db.student.findOneAndUpdate(
    { email: "kalus@gmail.com" },
    { $setOnInsert: { _id: 3,name: "Klaus" } }, 
    { upsert: true, returnOriginal: false }
 )
 
-# Deleting data from collection
-db.student.deleteOne({ name: "Alice" });
-db.student.deleteOne({ marks:70 })
-
-
-# Usage of deleteMany() method
-db.student.deleteMany({ age:20 })
-# Usage of conditional operators in the deleteMany() method
+### DELETE operations
+#### Deleting one document from collection
+db.student.deleteOne(first_name: "Amy" });
+#### Deleting all documents from collection
+db.student.deleteMany(first_name: "Amy" }, { age:20 });
+#### Delete all with conditional operators
 db.student.deleteMany({ marks: { $lt:85} })
-# delete all the documents permanently from the collection
+#### Delete all the documents from the collection
 db.student.deleteMany({ })
 
-# Creating index
-# The value 1 specifies that the index should be created in ascending order. 
-> db.student.createIndex({ name: 1 })  
-# Getting indexes
+### Creating index
+#### The value 1 specifies that the index should be created in ascending order. 
+> db.student.createIndex({ last_name: 1 })  
+#### Getting indexes
 > db.student.getIndexes()
 
 # Retrieve Statistics of the Collection Usage 
