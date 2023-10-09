@@ -19,8 +19,9 @@ mongoimport --jsonArray --db mydb --collection student --file studentDB.json
 #### with no DB connection
 > mongosh --nodb  
 #### with remoute connection - on atlas 
-> mongosh "mongodb+srv://USERNAME:PASSWORD@cluster-test.fndbj.mongodb.net/UserData?retryWrites=true&w=majority"
-
+```
+mongosh "mongodb+srv://USERNAME:PASSWORD@cluster-test.fndbj.mongodb.net/UserData?retryWrites=true&w=majority"
+```
 ### End the session
 > exit
 
@@ -113,10 +114,13 @@ db.student.countDocuments({ name: "Alice" })
 
 #### Projection parameter to retrieve only specific fields from the retrieved documents instea
 #### Retrieve only name and age will be retrived
-> db.student.find( {first_name: "Linda"}, { first_name: 1, last_name: 1 })
+```
+db.student.find( {first_name: "Linda"}, { first_name: 1, last_name: 1 })
+```
 #### _id field is included by default, unless specifically excluded. excluse by _id: 0 
-> db.student.find( {first_name: "Linda"}, { _id: 0, first_name: 1, last_name: 1 })
-
+```
+db.student.find( {first_name: "Linda"}, { _id: 0, first_name: 1, last_name: 1 })
+```
 #### Limiting output
 > db.student.find().limit(2)
 
@@ -128,27 +132,41 @@ db.student.countDocuments({ name: "Alice" })
 > db.student.distinct("first_name", {"age": {$gt: 30}})
 
 #### Finding and return values of existing fields (only value where a field exists, be returned)
-> db.student.find({ name: { $exists: true }, age: { $exists: true } } )
-
+```
+db.student.find({ name: { $exists: true }, age: { $exists: true } } )
+```
 #### Usage of DOT notation to query nested object
-> db.student.find({"student_detail.name": "Andy"}) 
+```
+db.student.find({"student_detail.name": "Andy"}) 
+```
 #### Finding usig nested fields, where "grades": { "math": 61, "history": 80}
-> db.student.find({ "grades.math": 61 })
-
+```
+db.student.find({ "grades.math": 61 })
+```
 #### Finding documents using $regex operator
-> db.student.find({"contact_information.email":{$regex:"example.net"}});
+```
+db.student.find({"contact_information.email":{$regex:"example.net"}});
+```
 #### Finding document, SQL-like '%anc%' using regular expression
-> db.student.find({country: /anc/})
+```
+db.student.find({country: /anc/})
+```
 #### Finding documents using $regex ^ character - starts by "Lit"
-> db.student.find({ major: { $regex: /^Lit/ } }).count()
+```
+db.student.find({ major: { $regex: /^Lit/ } }).count()
+```
 #### Finding documents using $regex | operator
-> db.student.find({ first_name: { $regex: /Anthony|Amy/ } })
+```
+db.student.find({ first_name: { $regex: /Anthony|Amy/ } })
+```
 #### Usage of $in operator
-> db.student.find({ first_name: { $in: ["Anthony", "Amy"] } })
-
+```
+db.student.find({ first_name: { $in: ["Anthony", "Amy"] } })
+```
 #### Usage of $text opeator - "text" index must be created first
-> db.student.find({ $text: { $search: "nice", $caseSensitive: true} })
-
+```
+db.student.find({ $text: { $search: "nice", $caseSensitive: true} })
+```
 #### getTimestamp() to extract the timestamp from the ObjectId 
 ```
 db.student.find({_id: {$gt: 
@@ -162,8 +180,7 @@ db.student.find({_id: {$gt:
 ```
 db.student.find({ 
   date_of_birth: { $gte: new Date("2022-01-01"), 
-                   $lte: new Date("2023-01-01") 
-        } 
+                   $lte: new Date("2023-01-01")  } 
   })
 ```
 #### Using $and operator
@@ -192,15 +209,15 @@ db.student.find({
 #### Updating Single Document
 ```
 db.student.updateOne(
-  { name: "Emily" },
+  { first_name: "Emily" },
   { $set: { age: 24 } }
 );
 ```
 #### Usage of updateOne method
 ```
 db.student.updateOne(
-   { email: "alex@gmail.com" }, 
-   { $setOnInsert: { name: "Alex" } },
+   { last_name: "Hoover" }, 
+   { $setOnInsert: { last_name: "Alex" } },
    { upsert: true }
 )
 ```
@@ -208,7 +225,7 @@ db.student.updateOne(
 ```
 db.student.updateMany(
   { age: { $gte: 20 } },
-  { $set: { name: "Students" } }
+  { $set: { profesion: "Students" } }
 )
 ```
 #### Using $set / $unset operators to Add New Field in collection
@@ -216,31 +233,31 @@ db.student.updateMany(
 ```
 db.student.updateMany({}, { $set: { Degree: "computer science" } })
 db.student.updateMany({}, { $unset: { Degree: "computer science" } })
-db.student.updateOne({"_id": 1}, {$rename: {"year": "date"} })
+db.student.updateOne({"_id": 14 }, {$rename: {"major": "MAJOR"} })
 ```
-#### Usage of replaceOne() method
-```
+#### Usage of replaceOne() method - replace document
+``` 
 db.student.replaceOne(
-   { _id: 1 },
-   { _id: 1, name: "Marrie", age: 28 },
+   { _id: 14 },
+   { _id: 14, first_name: "Marrie", age: 28 },
    { upsert: true }
 )
 ```
 #### Usage of findOneAndUpdate() method
 ```
 db.student.findOneAndUpdate(
-   { email: "kalus@gmail.com" },
-   { $setOnInsert: { _id: 3,name: "Klaus" } }, 
+   { _id: "13" },
+   { $setOnInsert: { _id: 3000, first_name: "Klaus" } }, 
    { upsert: true, returnOriginal: false }
 )
 ```
 ### DELETE operations
 #### Deleting one document from collection
-> db.student.deleteOne(first_name: "Amy" });
+> db.student.deleteOne({first_name: "Amy" });
 #### Deleting all documents from collection
-> db.student.deleteMany(first_name: "Amy" }, { age:20 });
+> db.student.deleteMany({first_name: "Amy" }, { age:20 });
 #### Delete all with conditional operators
-> db.student.deleteMany({ marks: { $lt:85} })
+> db.student.deleteMany({ grades.math: { $gt:85} })
 #### Delete all the documents from the collection
 > db.student.deleteMany({ })
 
@@ -253,18 +270,18 @@ db.student.findOneAndUpdate(
 
 #### Advance Pipelines 
 
-# Using the aggregation pipeline
-# https://www.digitalocean.com/community/tutorials/how-to-use-aggregations-in-mongodb
+#### Using the aggregation pipeline
+- https://www.digitalocean.com/community/tutorials/how-to-use-aggregations-in-mongodb
 
-# Aggregation pipelines are multi-step processes, the argument is a list of stages, hence the use of square brackets [] denoting an array of multiple elements.
-# Remember that the order of your stages matters. Each stage only acts upon the documents that previous stages provide.
+#### Aggregation pipelines are multi-step processes, the argument is a list of stages, hence the use of square brackets [] denoting an array of multiple elements. Remember that the order of your stages matters. Each stage only acts upon the documents that previous stages provide.
 
+```
 db.student.aggregate([
   # $match stage is useful for narrowing down the list of documents that are moved on to the next aggregation stage.    
   { $match: { } }     # match all data 
   { $match: { "continent": "North America" } }
-  { $match: { "continent": { $in: ["North America", "Asia"] } } }
-  { $match : { country : 'Spain', city : 'Salamanca' } }
+  { $match: { "continent": { $in: ["North America", "Europe"] } } }
+  { $match : { country : 'Spain' } }
   # Stage 1: Only find documents that have more than 1 like
   { $match: { likes: { $gt: 1 } }  },
   # Stage 2: Group documents by category and sum each categories likes
@@ -285,16 +302,16 @@ db.student.aggregate([
   { $count: "totalChinese" }
   # $addFields - add a new field
   { $addFields : { foundation_year : 1218 } },
-
   # Out results to collection
   # $out allows you to carry the results of your aggregation over into a new collection, or into an existing one after dropping it
   { $out : 'aggResults' },
   #  
   { $sortByCount : '$level' }
 ])
+```
 
-# $group aggregation stage is responsible for grouping and summarizing documents.
-# group the resulting documents by the continent 
+#### $group aggregation stage is responsible for grouping and summarizing documents.
+#### group the resulting documents by the continent 
 { $group: { "_id": "$continent" } }			
     {
         $group: {
@@ -308,12 +325,10 @@ db.student.aggregate([
         }
     }
 }
-# $unwind transforms complex documents into simpler documents - nested array to multiple rows.
+##### $unwind transforms complex documents into simpler documents - nested array to multiple rows.
 db.student.aggregate([{$unwind : "$model_year" }]
 
-# $lookup is an aggregate query that merges fields from two collections.
-
-
+#### $lookup is an aggregate query that merges fields from two collections.
 
 #### How to perform mongoDB operations in shell = mongosh
 - https://www.digitalocean.com/community/tutorials/how-to-perform-crud-operations-in-mongodb
