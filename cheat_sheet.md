@@ -90,7 +90,7 @@ db.student.insertOne([
 db.student.countDocuments()
 db.student.countDocuments({ name: "Alice" })
 ```
-```
+
 #### Reading single document from collection
 > db.student.findOne()
 #### Reading all documents from collection
@@ -107,7 +107,6 @@ db.student.countDocuments({ name: "Alice" })
 > db.student.find({ age: { $gt: 29 }, major: "Finance" })
 #### Finding date
 > db.student.find({date_of_birth: ISODate("1996-06-10")})
-```
 
 ### Sort documents, with  1 = ascending / -1 = descending order
 #### Sorting in in ascending order
@@ -120,7 +119,7 @@ db.student.countDocuments({ name: "Alice" })
 #### Projection parameter to retrieve only specific fields from the retrieved documents instea
 #### Retrieve only name and age will be retrived
 > db.student.find( {first_name: "Linda"}, { first_name: 1, last_name: 1 })
-# _id field is included by default, unless specifically excluded. excluse by _id: 0 
+#### _id field is included by default, unless specifically excluded. excluse by _id: 0 
 > db.student.find( {first_name: "Linda"}, { _id: 0, first_name: 1, last_name: 1 })
 
 #### Limiting output
@@ -152,7 +151,7 @@ db.student.countDocuments({ name: "Alice" })
 #### Usage of $in operator
 > db.student.find({ first_name: { $in: ["Anthony", "Amy"] } })
 
-#### Usage of $text opeator - index must be created first 
+#### Usage of $text opeator - "text" index must be created first
 > db.student.find({ $text: { $search: "nice", $caseSensitive: true} })
 
 #### getTimestamp() to extract the timestamp from the ObjectId 
