@@ -8,9 +8,10 @@
 * sudo systemctl enable/disable mongod
 
 ### Load mongoDB collection / import JSON file using mongoimport tool
-#### syntax: mongoimport –jsonArray –db database_name –collection collection_name –file file_location
-> mongoimport --jsonArray --db mydb --collection student --file studentDB.json
-
+#### #syntax: mongoimport –jsonArray –db database_name –collection collection_name –file file_location
+```
+mongoimport --jsonArray --db mydb --collection student --file studentDB.json
+```
 #### Run JavaScript File
 > load("mongoDB_script.js")
 
@@ -55,8 +56,10 @@
 #### Drop database
 > db.dropDatabase()
 
-#### Inserting documents to Collection 
-> db.student.insertOne({ _id: 1001, name: "Alice",  age: 23 });
+#### Inserting documents to Collection
+```
+db.student.insertOne({ _id: 1001, name: "Alice",  age: 23 });
+```
 #### Inserting multiple documents to Collection
 ```
 db.student.insertMany([
@@ -87,7 +90,7 @@ db.student.insertOne([
 db.student.countDocuments()
 db.student.countDocuments({ name: "Alice" })
 ```
-
+```
 #### Reading single document from collection
 > db.student.findOne()
 #### Reading all documents from collection
@@ -104,6 +107,7 @@ db.student.countDocuments({ name: "Alice" })
 > db.student.find({ age: { $gt: 29 }, major: "Finance" })
 #### Finding date
 > db.student.find({date_of_birth: ISODate("1996-06-10")})
+```
 
 ### Sort documents, with  1 = ascending / -1 = descending order
 #### Sorting in in ascending order
