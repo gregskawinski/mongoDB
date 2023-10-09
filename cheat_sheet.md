@@ -195,47 +195,59 @@ db.student.find({
 - https://www.w3schools.com/mongodb/mongodb_update_operators.php
 
 #### Updating Single Document
+```
 db.student.updateOne(
   { name: "Emily" },
   { $set: { age: 24 } }
 );
+```
 #### Usage of updateOne method
+```
 db.student.updateOne(
    { email: "alex@gmail.com" }, 
    { $setOnInsert: { name: "Alex" } },
    { upsert: true }
 )
+```
 #### Update multiple documents
+```
 db.student.updateMany(
   { age: { $gte: 20 } },
   { $set: { name: "Students" } }
-);
-#### Using $set Operator to Add New Field in collection
+)
+```
+#### Using $set / $unset operators to Add New Field in collection
 #### Usage of updateMany() method
-db.student.updateMany({}, { $set: { Degree: "computer science" } });
-
+```
+db.student.updateMany({}, { $set: { Degree: "computer science" } })
+db.student.updateMany({}, { $unset: { Degree: "computer science" } })
+db.student.updateOne({"_id": 1}, {$rename: {"year": "date"} })
+```
 #### Usage of replaceOne() method
+```
 db.student.replaceOne(
    { _id: 1 },
    { _id: 1, name: "Marrie", age: 28 },
    { upsert: true }
-);
+)
+```
 #### Usage of findOneAndUpdate() method
+```
 db.student.findOneAndUpdate(
    { email: "kalus@gmail.com" },
    { $setOnInsert: { _id: 3,name: "Klaus" } }, 
    { upsert: true, returnOriginal: false }
 )
-
+```
 ### DELETE operations
 #### Deleting one document from collection
-db.student.deleteOne(first_name: "Amy" });
+> db.student.deleteOne(first_name: "Amy" });
 #### Deleting all documents from collection
-db.student.deleteMany(first_name: "Amy" }, { age:20 });
+> db.student.deleteMany(first_name: "Amy" }, { age:20 });
 #### Delete all with conditional operators
-db.student.deleteMany({ marks: { $lt:85} })
+> db.student.deleteMany({ marks: { $lt:85} })
 #### Delete all the documents from the collection
-db.student.deleteMany({ })
+> db.student.deleteMany({ })
 
 ### Creating index
 #### The value 1 specifies that the index should be created in ascending order. 
