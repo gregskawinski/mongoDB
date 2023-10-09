@@ -275,60 +275,69 @@ db.student.findOneAndUpdate(
 
 #### Aggregation pipelines are multi-step processes, the argument is a list of stages, hence the use of square brackets [] denoting an array of multiple elements. Remember that the order of your stages matters. Each stage only acts upon the documents that previous stages provide.
 
+#### $match stage is for narrowing down the list of documents that are moved on to the next aggregation stage.
+#### $group aggregation stage is responsible for grouping and summarizing documents.
+#### $sort documents in an aggregation pipeline
+#### $limit number of documents
+#### $project the fields, included = 1, lack of field = 0 
+#### $addFields adds a new field
+#### $out carry the results of your aggregation over into a new collection, or into an existing one after dropping it
+#### $unwind transforms complex documents into simpler documents - nested array to multiple rows.
+#### $lookup is an aggregate query that merges fields from two collections.
+
+#### multi-match , sort, limit, count
 ```
-db.student.aggregate([
-  # $match stage is useful for narrowing down the list of documents that are moved on to the next aggregation stage.    
-  { $match: { } }     # match all data 
-  { $match: { "continent": "North America" } }
-  { $match: { "continent": { $in: ["North America", "Europe"] } } }
-  { $match : { country : 'Spain' } }
-  # Stage 1: Only find documents that have more than 1 like
-  { $match: { likes: { $gt: 1 } }  },
-  # Stage 2: Group documents by category and sum each categories likes
-  { $group: { _id: "$category", totalLikes: { $sum: "$likes" } }  },
-  { $group : { _id : '$name', totaldocs : { $sum : 1 } } }
-  # Stage 3: Sort documents by _id
-  # $sort the documents in an aggregation pipeline by including 
-  { $sort: { "population": -1 } }
-  { $sort: { _id: -1 } },
-  # Stage 4: Limit number of documents
+db.student.aggregate([ 
+  { $match: { } },        
+  { $match: { "continent": { $in: ["North America", "Europe"] } } },
+  { $match: { country : 'Spain' } },
+  { $match: { age: { $gt: 32 } }  },
+  { $sort:  { _id: -1 } },
+  { $count: "first_name" }
+])
+```
+#### match, group, sort
+```
+db.student.aggregate([   
+  { $match : { age : { $gt: 20 } }  },
+  { $group:  { _id: "$status", total_status: { $sum: 1 } }  },
+  { $sort:   { total_status: -1 } }  
+])
+```
+#### match, sort, project, limit, addField
+```
+db.student.aggregate([   
+  { $match : { "details.gender": "Female" }  },
+  { $sort:   { total_status: 1 } },
+  { $project : { _id : 0, last_name : 1, major : 1, country : 1 }   },
   { $limit: 4 },
-  # next match stage if needed
-  { $match: { }  },
-  # Stage project the fields included = 1, lack of field = 0 
-  # $project stage to construct new document structures in an aggregation pipeline
-  { $project : { _id : 0, country : 1, city : 1, name : 1 }   },
-  # Stage count if required
-  { $count: "totalChinese" }
-  # $addFields - add a new field
-  { $addFields : { foundation_year : 1218 } },
-  # Out results to collection
-  # $out allows you to carry the results of your aggregation over into a new collection, or into an existing one after dropping it
+  { $addFields : { foundation_year : "unknown" } },
   { $out : 'aggResults' },
-  #  
-  { $sortByCount : '$level' }
+])
+```
+#### multi-group, agg -> sum, agg -> first, agg->max
+```
+db.student.aggregate([ 
+    { $group: {
+               "_id": {
+                "continent": "$continent",
+                "country": "$country"    },
+                sum: { $sum: 1},
+                "first_name": { $first: "$first_name" },
+                "oldest": { $max: "$age" },
+              } } 
+])
+```
+#### match-all, project, unwind, limit 
+```
+db.student.aggregate([   
+  { $match : { } },
+  { $project : { _id : 0, first_name : 1, major : 1, courses : 1 }   },
+  { $unwind : "$courses" },
+  { $limit: 9 }
 ])
 ```
 
-#### $group aggregation stage is responsible for grouping and summarizing documents.
-#### group the resulting documents by the continent 
-{ $group: { "_id": "$continent" } }			
-    {
-        $group: {
-            "_id": {
-                "continent": "$continent",
-                "country": "$country"
-            },
-            "highest_population": { $max: "$population" },
-            "first_city": { $first: "$name" },
-            "cities_in_top_20": { $sum: 1 }
-        }
-    }
-}
-##### $unwind transforms complex documents into simpler documents - nested array to multiple rows.
-db.student.aggregate([{$unwind : "$model_year" }]
-
-#### $lookup is an aggregate query that merges fields from two collections.
 
 #### How to perform mongoDB operations in shell = mongosh
 - https://www.digitalocean.com/community/tutorials/how-to-perform-crud-operations-in-mongodb
