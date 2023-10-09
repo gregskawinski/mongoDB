@@ -2,11 +2,6 @@
 - https://www.cherryservers.com/blog/how-to-install-and-start-using-mongodb-on-ubuntu-20-04
 - https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-debian/
 
-### How to start mongoDB service in Ubuntu/Debian
-* sudo systemctl start/restart mongod
-* sudo systemctl status mongod
-* sudo systemctl enable/disable mongod
-
 ### Load mongoDB collection / import JSON file using mongoimport tool
 #### #syntax: mongoimport –jsonArray –db database_name –collection collection_name –file file_location
 ```
