@@ -39,7 +39,7 @@
 > help
 > db.help
 
-#### Create a database in MongoDB by using 
+#### Create a database 'mydb' 
 > use mydb
 #### Create collections 'student'
 > db.createCollection(“student”)
@@ -48,17 +48,16 @@
 > db.student.drop() 
 
 # Inserting documents to Collection 
-> db.student.insertOne({ _id: 1, name: "Alice",  age: 23 });
+> db.student.insertOne({ _id: 1001, name: "Alice",  age: 23 });
 # Inserting multiple documents to Collection
 > db.student.insertMany([
-  { _id: 2, name: "Ian", age: 21 },
-  { _id: 3, name: "Candice", age: 20  },
-  { _id: 4, name: "Emily", age: 22  },
+  { _id: 1002, name: "Ian", age: 21 },
+  { _id: 1003, name: "Candice", age: 20  },
+  { _id: 1004, name: "Emily", age: 22  },
 ]);
 # Create nested Collection
 > db.student.insertMany([
-  { 
-    _id:1, 
+  { _id: 1005, 
     student_detail: [ 
       {"name":"Andy", "age": 24, "email": "andy24@gmail.com", 
           "address":[
@@ -66,47 +65,56 @@
           ]
       } ]      
   },] )
+> db.student.insertOne([
+...   { _id:1005, 
+...     grades: {
+...             "math": 80,
+...             "history": 83,
+...             "english": 90
+...     },
+...     details:[  1, 2, 3  ],      
+...   }
+])
 
-# Perform operations on collection "student"
-# Reading documents from collection
-> db.student.find();
-> db.student.find().pretty()
 
-# Checking and return existence of fields (only the existing values will be returned)
-> db.student.find({ name: { $exists: true }, age: { $exists: true } } )
-
-# Sort Documents in Ascending order in MongoDB
-# Usage of sort() method  1 = ascending/ -1 = descending order
-> db.student.find().sort({ age: 1 })  
-# Sorting in descending order
-> db.student.find().sort({ sName: -1 })
-# Sorting by multiple fields
-> db.student.find().sort([{ sName: 1 }, { age: -1 }]) 
-
-# Retrieve Distinct Values of Field
-> db.student.distinct("name")
-# Retrieve Distinct Values Number of Field
-> db.student.distinct("name").length
-# Retrieve Distinct Values of Fields From Condition
-> db.student.distinct("name", {"age": {$gt: 23}})
-
-# Counting documents of collection
+### Perform operations on collection "student"
+#### Counting documents of collection
 > db.student.countDocuments()
-# Usage of countDocuments() method
 > db.student.countDocuments({ name: "Alice" })
 
-# Reading documents from collection
+#### Reading single / all documents from collection
+> db.student.findOne()
 > db.student.find();
-# Reading specific document, Name = Alice etc
+#### Finding specific documents, with specified field, eg. Name = Alice etc
 > db.student.find({ name: "Alice" });
-# Finding single document having specified field 
-> db.student.findOne({gender: "Female"})
-# findOne() method with multiple fields
-> db.student.findOne({name: "Harry", age: 24})
-# findOne() method with conditional operator
-> db.student.findOne({marks: {$gt: 85}})
-# Usage of multiple key-value pairs 
-> db.student.find({ age: { $gt: 23 }, gender: "Male" })
+#### Finding single document with specified field 
+> db.student.findOne({ "major": "Finance"})
+#### Finding single document with multiple fields
+> db.student.findOne({first_name: "Michael", age: 20})
+#### Finding specific documents with conditional operator
+> db.student.find({age: {$gt: 31}})
+#### Finding specific documents multiple fields/conditions 
+> db.student.find({ age: { $gt: 29 }, major: "Finance" })
+
+### Sort documents, with  1 = ascending / -1 = descending order
+#### Sorting in in ascending order
+> db.student.find().sort({ age: 1 })  
+#### Sorting in descending order
+> db.student.find().sort({ first_name: -1 })
+#### Sorting by multiple fields
+> db.student.find().sort([{ first_name: 1 }, { age: -1 }]) 
+
+#### Retrieve Distinct Values of Specified Field
+> db.student.distinct("first_name")
+#### Retrieve Distinct Values Number of Field
+> db.student.distinct("first_name").length
+#### Retrieve Distinct Values of Field with Condition
+> db.student.distinct("first_name", {"age": {$gt: 30}})
+
+#### Finding and return values of existing fields (only value where a field exists, be returned)
+> db.student.find({ name: { $exists: true }, age: { $exists: true } } )
+
+
 # Like '%a%' using regular expression
 > db.student.find({subject: /a/})  
 # Using ^ character
