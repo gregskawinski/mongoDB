@@ -220,12 +220,26 @@ db.student.find({ first_name: { $in: ["Anthony", "Amy"] } })
 ```
 db.student.find({ $text: { $search: "nice", $caseSensitive: true} })
 ```
-#### getTimestamp() to extract the timestamp from the ObjectId 
+#### Find documents with timestamp > than some timestamp,  create ObjecId ( time -> str+ rest)  
 ```
 db.student.find({_id: {$gt: 
   ObjectId(Math.floor((new Date('2023-03-18')).getTime()/1000).toString(16) + "0000000000000000")
 }})
 ```
+#### Get timestamp from ObjectID.
+```
+const objectId = ObjectId("65256fd7acc4eb049873c831")
+const timestamp = objectId.getTimestamp()
+print(timestamp)
+```
+
+#### Create an ObjectId with a specific timestamp (in s)
+```
+const timestamp = Math.floor(Date.now() / 1000); 
+const objectId = ObjectId.createFromTime(timestamp);
+print(objectId);
+```
+
 #### MongoDB Query Operators
 - https://www.w3schools.com/mongodb/mongodb_query_operators.php
 
